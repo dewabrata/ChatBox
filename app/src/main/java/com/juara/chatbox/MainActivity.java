@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
                     ModelChat mc = new ModelChat();
                     mc.setText(txtChat.getText().toString());
+                    mc.setDate(new Date().toString());
                     mc.setImage("https://www.pinterpolitik.com/wp-content/uploads/2018/11/Titiek-Tuduh-Jokowi-Pembohong-Joko-Widodo.-Foto-VoaIndonesia-768x432.jpg");
                     mc.setType(AdapterListSimple.TYPE_RECEIVER);
                     setListChat(mc);
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         lstChat.setLayoutManager(new LinearLayoutManager(this));
         lstChat.setItemAnimator(new DefaultItemAnimator());
         lstChat.setAdapter(adapter);
+
     }
 
 

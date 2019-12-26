@@ -1,11 +1,13 @@
 package com.juara.chatbox;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,10 +63,18 @@ public class AdapterListSimple extends RecyclerView.Adapter<AdapterListSimple.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         TextView txtNama = holder.txtNama;
         ImageView image = holder.image;
 
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ContactActivity.class);
+                intent.putExtra("data",data.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         txtNama.setText(data.get(position).getText());
         Picasso.get().load(data.get(position).getImage()).into(image);
@@ -79,21 +89,20 @@ public class AdapterListSimple extends RecyclerView.Adapter<AdapterListSimple.Vi
 
 
     // Static inner class to initialize the views of rows
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder  {
         public TextView txtNama;
         public ImageView image;
+        public LinearLayout parentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+
             txtNama = (TextView) itemView.findViewById(R.id.txtName);
             image = (ImageView)itemView.findViewById(R.id.imageView);
+            parentLayout = (LinearLayout)itemView.findViewById(R.id.parentLayout);
 
         }
-        @Override
-        public void onClick(View view) {
-            Log.d("onclick", "onClick " + getLayoutPosition() + " " + txtNama.getText());
-        }
+
     }
 
 
